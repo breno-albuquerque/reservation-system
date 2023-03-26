@@ -2,6 +2,7 @@
 using RerservationSystem.Core.Features.RegisterUser.Handler;
 using RerservationSystem.Core.Shared.Data;
 using RerservationSystem.Core.Shared.Handlers;
+using RerservationSystem.Core.Shared.Services.JwtToken;
 using RerservationSystem.Core.Shared.Users.Repositories;
 
 namespace RerservationSystem.Core
@@ -14,7 +15,8 @@ namespace RerservationSystem.Core
                 .AddDataContext()
                 .AddSqlService()
                 .AddRegisterUser()
-                .AddRepositories();
+                .AddRepositories()
+                .AddServices();
         }
 
         private static IServiceCollection AddDataContext(this IServiceCollection services)
@@ -34,6 +36,11 @@ namespace RerservationSystem.Core
         private static IServiceCollection AddRegisterUser(this IServiceCollection services)
         {
             return services.AddScoped<IHandler<RegisterUserInput, RegisterUserOutput>, RegisterUserHandler>();
+        }
+
+        private static IServiceCollection AddServices(this IServiceCollection services)
+        {
+            return services.AddScoped<ITokenService, TokenService>();
         }
     }
 }

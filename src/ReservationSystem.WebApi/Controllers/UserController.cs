@@ -20,7 +20,8 @@ namespace ReservationSystem.WebApi.Controllers
             [FromServices] IHandler<RegisterUserInput, RegisterUserOutput> registerUserHandler
             )
         {
-            var input = new RegisterUserInput(registerUserView.Document, registerUserView.Email, registerUserView.Role, registerUserView.Password);
+            var input = new RegisterUserInput(registerUserView.Document, registerUserView.Email, 
+                registerUserView.Role, registerUserView.Password);
 
             var output = await registerUserHandler.HandleAsync(input);
 

@@ -4,11 +4,18 @@ namespace RerservationSystem.Core.Features.RegisterUser.Handler
 {
     public sealed class RegisterUserOutput : IOutput
     {
-        public bool Success { get; set; }
+        public bool WasSucceded { get; private set; }
 
-        public RegisterUserOutput(bool success)
+        public string JwtToken { get; private set; }
+
+        private RegisterUserOutput(bool wasSucceded, string jwtToken)
         {
-            Success = success;
+            WasSucceded = wasSucceded;
+            JwtToken = jwtToken;
         }
+
+        public static RegisterUserOutput Success(string jwtToken) => new(true, jwtToken);
+
+        public static RegisterUserOutput Failure() => new(false, default);
     }
 }

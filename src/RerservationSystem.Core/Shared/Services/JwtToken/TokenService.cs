@@ -5,9 +5,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace RerservationSystem.Core.Shared.Services
+namespace RerservationSystem.Core.Shared.Services.JwtToken
 {
-    public class TokenService
+    public class TokenService : ITokenService
     {
         public string GenerateToken(User user)
         {
@@ -35,7 +35,7 @@ namespace RerservationSystem.Core.Shared.Services
         {
             return new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Email),
                 new Claim(ClaimTypes.Role, user.UserRole.ToString()),
             };
         }

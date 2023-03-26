@@ -9,7 +9,7 @@ namespace RerservationSystem.Core.Features.LoginUser.Handler
 
         }
 
-        public async Task<IOutput> HandleAsync(LoginUserInput input)
+        public async Task<LoginUserOutput> HandleAsync(LoginUserInput input)
         {
             return new LoginUserOutput();
         }

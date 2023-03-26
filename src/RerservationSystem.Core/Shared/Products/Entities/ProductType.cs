@@ -1,7 +1,7 @@
 ﻿using RerservationSystem.Core.Shared.Entities;
 using RerservationSystem.Core.Shared.Enums;
 
-namespace RerservationSystem.Core.Shared.Product.Entities
+namespace RerservationSystem.Core.Shared.Products.Entities
 {
     public class ProductType : Entity
     {

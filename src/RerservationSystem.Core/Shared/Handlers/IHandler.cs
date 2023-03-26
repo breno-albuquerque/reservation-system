@@ -4,6 +4,6 @@
         where TInput : IInput
         where TOutput : IOutput
     {
-        Task<IOutput> HandleAsync(TInput input);
+        Task<TOutput> HandleAsync(TInput input);
     }
 }

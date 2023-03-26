@@ -1,6 +1,6 @@
 ﻿using RerservationSystem.Core.Shared.Entities;
 
-namespace RerservationSystem.Core.Shared.Product.Entities
+namespace RerservationSystem.Core.Shared.Products.Entities
 {
     public class Product : Entity
     {
