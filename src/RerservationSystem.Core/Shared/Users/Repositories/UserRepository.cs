@@ -28,5 +28,10 @@ namespace RerservationSystem.Core.Shared.Users.Repositories
 
             return affectedRows;
         }
+
+        public async Task<bool> ExistsAsync(User user)
+        {
+            return await _sqlService.ExistsAsync(UserRepositorySql.UserExistsQuery, new { email = user.Email });
+        }
     }
 }

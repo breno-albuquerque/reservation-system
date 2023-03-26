@@ -20,6 +20,9 @@ namespace RerservationSystem.Core.Features.RegisterUser.Handler
         {
             var user = new User(DateTime.Now, DateTime.Now, input.Document, input.Email, input.Role, input.Password);
 
+            if (await _userRepository.ExistsAsync(user))
+                return RegisterUserOutput.Failure();
+
             var result = await _userRepository.CreateUserAsync(user);
 
             if (result == 0)

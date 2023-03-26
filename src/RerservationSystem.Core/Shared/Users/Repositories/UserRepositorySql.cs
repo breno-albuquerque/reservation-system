@@ -21,5 +21,14 @@
                 @dateInsertion,
                 @dateAlteration
             )";
+
+        public const string UserExistsQuery = @"
+            select 
+                count(1)
+            from 
+                [USER]
+            where
+                [EMAIL] = @email
+            ";
     }
 }

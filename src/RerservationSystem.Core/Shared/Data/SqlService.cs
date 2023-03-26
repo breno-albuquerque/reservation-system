@@ -17,6 +17,12 @@ namespace RerservationSystem.Core.Shared.Data
                 return await connection.ExecuteAsync(sql, param);
         }
 
+        public async Task<bool> ExistsAsync(string sql, object param)
+        {
+            using (var connection = _context.GetConnection())
+                return await connection.ExecuteScalarAsync<bool>(sql, param);
+        }
+
         public async Task<IEnumerable<T>> ListAsync<T>(string sql, object param)
         {
             using (var connection = _context.GetConnection())
