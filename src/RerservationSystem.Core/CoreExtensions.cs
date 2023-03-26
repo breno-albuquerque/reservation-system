@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RerservationSystem.Core.Features.CreateUser.Handler;
+using RerservationSystem.Core.Features.LoginUser.Handler;
 using RerservationSystem.Core.Shared.Data;
 using RerservationSystem.Core.Shared.Handlers;
 
@@ -27,7 +27,7 @@ namespace RerservationSystem.Core
 
         private static IServiceCollection AddGetUser(this IServiceCollection services)
         {
-            return services.AddScoped<IHandler<GetUserInput, GetUserOutput>, GetUserHandler>();
+            return services.AddScoped<IHandler<LoginUserInput, LoginUserOutput>, LoginUserHandler>();
         }
     }
 }
