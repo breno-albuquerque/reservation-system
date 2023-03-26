@@ -31,26 +31,26 @@ CREATE TABLE [USER](
 )
 GO
 
---	SERVICE_TYPE
-CREATE TABLE [SERVICE_TYPE](
+--	PRODUCT_TYPE
+CREATE TABLE [PRODUCT_TYPE](
 	[ID] int not null unique identity,
 	[TYPE_NAME] nvarchar(50) not null unique,
 	[DATE_INSERTION] datetime not null, 
 	[DATE_ALTERATION] datetime not null,
-	constraint PK_SERVICE_TYPE primary key ([ID]),
+	constraint PK_PRODUCT_TYPE primary key ([ID]),
 )
 GO
 
---	SERVICE
-CREATE TABLE [SERVICE](
+--	PRODUCT
+CREATE TABLE [PRODUCT](
 	[ID] int not null unique identity,
-	[SERVICE_TYPE] int not null,
+	[PRODUCT_TYPE] int not null,
 	[CAPACITY] int not null,
 	[NAME] nvarchar(100) not null,
 	[DATE_INSERTION] datetime not null, 
 	[DATE_ALTERATION] datetime not null,
-	constraint [PK_SERVICE] primary key ([ID]),
-	constraint [FK_SERVICE_TYPE] foreign key ([SERVICE_TYPE]) references [SERVICE_TYPE] ([ID])
+	constraint [PK_PRODUCT] primary key ([ID]),
+	constraint [FK_PRODUCT_TYPE] foreign key ([PRODUCT_TYPE]) references [PRODUCT_TYPE] ([ID])
 )
 GO
 
@@ -58,14 +58,14 @@ GO
 CREATE TABLE [RESERVATION](
 	[ID] int not null unique identity,
 	[USER] int not null,
-	[SERVICE] int not null,
+	[PRODUCT] int not null,
 	[DATE_BEGIN] datetime not null,
 	[DATE_END] datetime not null,
 	[DATE_INSERTION] datetime not null, 
 	[DATE_ALTERATION] datetime not null,
 	constraint [PK_RESERVATION] primary key ([ID]),
 	constraint [FK_USER] foreign key ([USER]) references [USER] ([ID]),
-	constraint [FK_SERVICE] foreign key ([SERVICE]) references [SERVICE] ([ID]),
+	constraint [FK_PRODUCT] foreign key ([PRODUCT]) references [PRODUCT] ([ID]),
 )
 GO
 

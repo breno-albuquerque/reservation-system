@@ -1,5 +1,4 @@
 ﻿using RerservationSystem.Core.Shared.Entities;
-using RerservationSystem.Core.Shared.Services.Entities;
 using RerservationSystem.Core.Shared.Users.Entities;
 
 namespace RerservationSystem.Core.Shared.Reservations.Entities
@@ -8,13 +7,13 @@ namespace RerservationSystem.Core.Shared.Reservations.Entities
     {
         public User User { get; set; }
 
-        public Service Service { get; set; }
+        public Product Service { get; set; }
 
         public DateTime DateBegin { get; set; }
 
         public DateTime DateEnd { get; set; }
 
-        public Reservation(int id, User user, Service service, DateTime dateBegin, DateTime dateEnd, DateTime dateInsertion, DateTime dateAlteration)
+        public Reservation(int id, User user, Product service, DateTime dateBegin, DateTime dateEnd, DateTime dateInsertion, DateTime dateAlteration)
             : base(id, dateInsertion, dateAlteration)
         {
             User = user;

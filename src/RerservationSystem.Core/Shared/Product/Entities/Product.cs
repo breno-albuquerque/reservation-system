@@ -1,16 +1,16 @@
 ﻿using RerservationSystem.Core.Shared.Entities;
 
-namespace RerservationSystem.Core.Shared.Services.Entities
+namespace RerservationSystem.Core.Shared.Product.Entities
 {
-    public class Service : Entity
+    public class Product : Entity
     {
-        public ServiceType ServiceType { get; set; }
+        public ProductType ServiceType { get; set; }
 
         public string Name { get; set; }
 
         public int Capacity { get; set; }
 
-        public Service(int id, ServiceType serviceType, string name, int capacity, DateTime dateInsertion, DateTime dateAlteration)
+        public Product(int id, ProductType serviceType, string name, int capacity, DateTime dateInsertion, DateTime dateAlteration)
             : base(id, dateInsertion, dateAlteration)
         {
             ServiceType = serviceType;

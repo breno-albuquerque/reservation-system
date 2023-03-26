@@ -1,13 +1,13 @@
 ﻿using RerservationSystem.Core.Shared.Entities;
 using RerservationSystem.Core.Shared.Enums;
 
-namespace RerservationSystem.Core.Shared.Services.Entities
+namespace RerservationSystem.Core.Shared.Product.Entities
 {
-    public class ServiceType : Entity
+    public class ProductType : Entity
     {
         public ETypeName TypeName { get; set; }
 
-        public ServiceType(int id, ETypeName typeName, DateTime dateInsertion, DateTime dateAlteration)
+        public ProductType(int id, ETypeName typeName, DateTime dateInsertion, DateTime dateAlteration)
             : base(id, dateInsertion, dateAlteration)
         {
             TypeName = typeName;
