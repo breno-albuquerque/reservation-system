@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RerservationSystem.Core.Features.LoginUser.Handler;
+using RerservationSystem.Core.Features.RegisterUser.Handler;
 using RerservationSystem.Core.Shared.Data;
 using RerservationSystem.Core.Shared.Handlers;
+using RerservationSystem.Core.Shared.Users.Repositories;
 
 namespace RerservationSystem.Core
 {
@@ -12,7 +13,8 @@ namespace RerservationSystem.Core
             return services
                 .AddDataContext()
                 .AddSqlService()
-                .AddGetUser();
+                .AddRegisterUser()
+                .AddRepositories();
         }
 
         private static IServiceCollection AddDataContext(this IServiceCollection services)
@@ -24,10 +26,14 @@ namespace RerservationSystem.Core
         {
             return services.AddScoped<ISqlService, SqlService>();
         }
-
-        private static IServiceCollection AddGetUser(this IServiceCollection services)
+        private static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            return services.AddScoped<IHandler<LoginUserInput, LoginUserOutput>, LoginUserHandler>();
+            return services.AddScoped<IUserRepository, UserRepository>();
+        }
+
+        private static IServiceCollection AddRegisterUser(this IServiceCollection services)
+        {
+            return services.AddScoped<IHandler<RegisterUserInput, RegisterUserOutput>, RegisterUserHandler>();
         }
     }
 }

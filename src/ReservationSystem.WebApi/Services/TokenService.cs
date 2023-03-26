@@ -36,7 +36,7 @@ namespace ReservationSystem.WebApi.Services
             return new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, user.UserRole.RoleName),
+                new Claim(ClaimTypes.Role, user.UserRole.ToString()),
             };
         }
     }

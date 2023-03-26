@@ -9,7 +9,7 @@ GO
 
 -- ROLE
 CREATE TABLE [ROLE](
-	[ID] int not null unique,
+	[ID] int not null unique identity,
 	[ROLE_NAME] nvarchar(50) not null unique,
 	[DATE_INSERTION] datetime not null, 
 	[DATE_ALTERATION] datetime not null,
@@ -19,7 +19,7 @@ GO
 
 --	USER
 CREATE TABLE [USER](
-	[ID] int not null unique,
+	[ID] int not null unique identity,
 	[USER_ROLE] int not null,
 	[DOCUMENT] char(11) not null unique,
 	[EMAIL] nvarchar(100) not null unique,
@@ -33,7 +33,7 @@ GO
 
 --	SERVICE_TYPE
 CREATE TABLE [SERVICE_TYPE](
-	[ID] int not null unique,
+	[ID] int not null unique identity,
 	[TYPE_NAME] nvarchar(50) not null unique,
 	[DATE_INSERTION] datetime not null, 
 	[DATE_ALTERATION] datetime not null,
@@ -43,7 +43,7 @@ GO
 
 --	SERVICE
 CREATE TABLE [SERVICE](
-	[ID] int not null unique,
+	[ID] int not null unique identity,
 	[SERVICE_TYPE] int not null,
 	[CAPACITY] int not null,
 	[NAME] nvarchar(100) not null,
@@ -56,7 +56,7 @@ GO
 
 --	RESERVATION
 CREATE TABLE [RESERVATION](
-	[ID] int not null unique,
+	[ID] int not null unique identity,
 	[USER] int not null,
 	[SERVICE] int not null,
 	[DATE_BEGIN] datetime not null,
@@ -71,7 +71,7 @@ GO
 
 --	PAYMENT
 CREATE TABLE [PAYMENT](
-	[ID] int not null unique,
+	[ID] int not null unique identity,
 	[RESERVATION] int not null,
 	[METHOD] nvarchar(50) not null,
 	[VALUE] money not null, 

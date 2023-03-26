@@ -14,5 +14,11 @@
             DateInsertion = dateInsertion;
             DateAlteration = dateAlteration;
         }
+
+        public Entity(DateTime dateInsersion, DateTime dateAlteration)
+        {
+            DateInsertion = dateInsersion;
+            DateAlteration = dateAlteration;
+        }
     }
 }

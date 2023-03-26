@@ -11,6 +11,12 @@ namespace RerservationSystem.Core.Shared.Data
             _context = context;
         }
 
+        public async Task<int> CreateAsync<T>(string sql, object param)
+        {
+            using (var connection = _context.GetConnection())
+                return await connection.ExecuteAsync(sql, param);
+        }
+
         public async Task<IEnumerable<T>> ListAsync<T>(string sql, object param)
         {
             using (var connection = _context.GetConnection())

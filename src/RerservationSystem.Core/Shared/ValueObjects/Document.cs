@@ -4,9 +4,9 @@ namespace RerservationSystem.Core.Shared.ValueObjects
 {
     public class Document : ValueObject
     {
-        public int Number { get; set; }
+        public long Number { get; set; }
 
-        public Document(int number)
+        public Document(long number)
         {
             Number = number;
         }

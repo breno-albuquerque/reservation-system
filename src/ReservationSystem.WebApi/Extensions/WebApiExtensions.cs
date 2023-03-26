@@ -1,6 +1,4 @@
-﻿using ReservationSystem.WebApi.Configurations;
-
-namespace ReservationSystem.WebApi.Extensions
+﻿namespace ReservationSystem.WebApi.Extensions
 {
     public static class WebApiExtensions
     {
