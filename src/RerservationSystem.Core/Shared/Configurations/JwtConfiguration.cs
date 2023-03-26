@@ -1,4 +1,4 @@
-﻿namespace ReservationSystem.WebApi.Configurations
+﻿namespace RerservationSystem.Core.Shared.Configurations
 {
     public static class JwtConfiguration
     {

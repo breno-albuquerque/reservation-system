@@ -1,11 +1,11 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using RerservationSystem.Core.Shared.Configurations;
 using RerservationSystem.Core.Shared.Users.Entities;
-using ReservationSystem.WebApi.Configurations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace ReservationSystem.WebApi.Services
+namespace RerservationSystem.Core.Shared.Services
 {
     public class TokenService
     {

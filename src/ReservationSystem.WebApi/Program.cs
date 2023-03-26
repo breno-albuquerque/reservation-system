@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using RerservationSystem.Core;
-using ReservationSystem.WebApi.Configurations;
+using RerservationSystem.Core.Shared.Configurations;
 using ReservationSystem.WebApi.Extensions;
 using System.Text;
 
