@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace ReservationSystem.WebApi.ViewModels.RegisterUser
 {
-    public class RegisterUserRequest
+    public sealed class RegisterUserRequest
     {
         [JsonPropertyName("document")]
         public string? Document { get; set; }

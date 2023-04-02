@@ -2,7 +2,7 @@
 
 namespace RerservationSystem.Core.Shared.Services.Error
 {
-    public class ErrorService : IErrorService
+    public sealed class ErrorService : IErrorService
     {
         private IList<string> _errors = new List<string>();
 

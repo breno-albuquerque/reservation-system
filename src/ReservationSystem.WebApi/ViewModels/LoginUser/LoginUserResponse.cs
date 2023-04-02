@@ -2,7 +2,7 @@
 
 namespace ReservationSystem.WebApi.ViewModels.LoginUser
 {
-    public class LoginUserResponse : ResponseBase
+    public sealed class LoginUserResponse : ResponseBase
     {
         [JsonPropertyName("jwtToken")]
         public string? JwtToken { get; set; }

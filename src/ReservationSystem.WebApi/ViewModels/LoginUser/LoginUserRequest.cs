@@ -2,7 +2,7 @@
 
 namespace ReservationSystem.WebApi.ViewModels.LoginUser
 {
-    public class LoginUserRequest
+    public sealed class LoginUserRequest
     {
         [JsonPropertyName("email")]
         public string? Email { get; set; }

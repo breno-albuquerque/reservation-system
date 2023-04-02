@@ -2,7 +2,7 @@
 
 namespace ReservationSystem.WebApi.ViewModels.RegisterUser
 {
-    public class RegisterUserResponse : ResponseBase
+    public sealed class RegisterUserResponse : ResponseBase
     {
         [JsonPropertyName("password")]
         public string? Password { get; set; }

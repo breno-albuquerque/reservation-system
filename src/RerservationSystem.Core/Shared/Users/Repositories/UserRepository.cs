@@ -5,7 +5,7 @@ using RerservationSystem.Core.Shared.Users.Entities;
 
 namespace RerservationSystem.Core.Shared.Users.Repositories
 {
-    public class UserRepository : IUserRepository
+    public sealed class UserRepository : IUserRepository
     {
         private readonly ISqlService _sqlService;
         private readonly IErrorService _errorService;
