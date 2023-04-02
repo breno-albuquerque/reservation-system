@@ -18,28 +18,51 @@ namespace RerservationSystem.Core.Shared.Users.Repositories
             {
                 var affectedRows = await _sqlService
                     .CreateAsync<User>(UserRepositorySql.CreateUserQuery,
-                    new
-                    {
-                        userRole = (int)user.UserRole,
-                        document = user.Document,
-                        email = user.Email,
-                        password = user.Password,
-                        dateInsertion = user.DateInsertion,
-                        dateAlteration = user.DateAlteration
-                    });
+                        new
+                        {
+                            userRole = (int)user.UserRole,
+                            document = user.Document,
+                            email = user.Email,
+                            passwordHash = user.PasswordHash,
+                            dateInsertion = user.DateInsertion,
+                            dateAlteration = user.DateAlteration
+                        });
 
                 return affectedRows;
             }
-            catch (Exception e)
+            catch
             {
-                Console.WriteLine(e.Message);
+                //  TO-DO: Adicionar aos erros (Notifiable)
                 return 0;
             }
         }
 
-        public async Task<bool> ExistsAsync(User user)
+        public async Task<bool> ExistsAsync(string email)
         {
-            return await _sqlService.ExistsAsync(UserRepositorySql.UserExistsQuery, new { email = user.Email });
+            try
+            {
+                return await _sqlService
+                    .ExistsAsync(UserRepositorySql.UserExistsQuery, new { email });
+            }
+            catch
+            {
+                //  TO-DO: Adicionar aos erros (Notifiable)
+                return false;
+            }
+        }
+
+        public async Task<User> GetAsync(string email)
+        {
+            try
+            {
+                return await _sqlService.GetAsync<User>(UserRepositorySql.GetUserQuery, new { email })
+                    ?? User.Empty();
+            }
+            catch
+            {
+                //  TO-DO: Adicionar aos erros (Notifiable)
+                return User.Empty();
+            }
         }
     }
 }

@@ -6,6 +6,8 @@ namespace RerservationSystem.Core.Shared.Users.Repositories
     {
         Task<int> CreateUserAsync(User user);
 
-        Task<bool> ExistsAsync(User user);
+        Task<bool> ExistsAsync(string email);
+
+        Task<User> GetAsync(string email);
     }
 }

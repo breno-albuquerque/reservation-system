@@ -8,7 +8,7 @@
                 [USER_ROLE],
                 [DOCUMENT],
                 [EMAIL],
-                [PASSWORD],
+                [PASSWORD_HASH],
                 [DATE_INSERTION],
                 [DATE_ALTERATION]
             )
@@ -17,7 +17,7 @@
                 @userRole,
                 @document,
                 @email,
-                @password,
+                @passwordHash,
                 @dateInsertion,
                 @dateAlteration
             )";
@@ -25,6 +25,21 @@
         public const string UserExistsQuery = @"
             select 
                 count(1)
+            from 
+                [USER]
+            where
+                [EMAIL] = @email
+            ";
+
+        public const string GetUserQuery = @"
+            select 
+                [ID] as Id,
+                [EMAIL] as Email,
+                [DOCUMENT] as Document,
+                [USER_ROLE] as UserRole,
+                [PASSWORD_HASH] as PasswordHash,
+                [DATE_INSERTION] as DateInsertion,
+                [DATE_ALTERATION] as DateAlteration
             from 
                 [USER]
             where

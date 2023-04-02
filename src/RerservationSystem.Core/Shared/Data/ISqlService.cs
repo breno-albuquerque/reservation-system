@@ -7,5 +7,7 @@
         Task<IEnumerable<T>> ListAsync<T>(string sql, object param);
 
         Task<bool> ExistsAsync(string sql, object param);
+
+        Task<T> GetAsync<T>(string sql, object param);
     }
 }

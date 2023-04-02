@@ -2,43 +2,50 @@
 using RerservationSystem.Core.Features.LoginUser.Handler;
 using RerservationSystem.Core.Features.RegisterUser.Handler;
 using RerservationSystem.Core.Shared.Handlers;
+using ReservationSystem.WebApi.ViewModels.LoginUser;
 using ReservationSystem.WebApi.ViewModels.RegisterUser;
-using System.Net;
 
 namespace ReservationSystem.WebApi.Controllers
 {
     [ApiController]
     public sealed class UserController : ControllerBase
     {
-        public UserController()
-        {
+        public UserController() { }
 
-        }
-
-        [HttpPost("/v1/user")]
+        [HttpPost("/v1/user/register")]
         public async Task<ActionResult<RegisterUserOutput>> RegisterUserAsync(
             [FromBody] RegisterUserRequest registerUserRequest,
             [FromServices] IHandler<RegisterUserInput, RegisterUserOutput> registerUserHandler
             )
         {
-            var input = new RegisterUserInput(registerUserRequest.Document, registerUserRequest.Email, 
-                registerUserRequest.Role, registerUserRequest.Password);
+            var input = new RegisterUserInput(
+                registerUserRequest.Document, 
+                registerUserRequest.Email, 
+                registerUserRequest.Role);
 
             var output = await registerUserHandler.HandleAsync(input);
 
-            var response = new RegisterUserResponse(output.JwtToken);
+            var response = new RegisterUserResponse(output.Password);
 
             return StatusCode((int)output.StatusCode, response);
         }
 
-        [HttpGet("/v1/user")]
-        public async Task<ActionResult<LoginUserOutput>> LoginUserAsync()
+        [HttpPost("/v1/user/login")]
+        public async Task<ActionResult<LoginUserOutput>> LoginUserAsync(
+            [FromBody] LoginUserRequest loginUserRequest,
+            [FromServices] IHandler<LoginUserInput, LoginUserOutput> loginUserHandler
+            )
         {
-            var input = new LoginUserInput();
+            var input = new LoginUserInput(
+                loginUserRequest.Email,
+                loginUserRequest.Password
+                );
 
-            //  var output = await _loginUserHandler.HandleAsync(input);
+            var output = await loginUserHandler.HandleAsync(input);
 
-            return Ok();
+            var response = new LoginUserResponse(output.JwtToken);
+
+            return StatusCode((int)output.StatusCode, response);
         }
     }
 }

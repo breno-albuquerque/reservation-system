@@ -13,8 +13,5 @@ namespace ReservationSystem.WebApi.ViewModels.RegisterUser
 
         [JsonPropertyName("userRole")]
         public ERole Role { get; set; }
-
-        [JsonPropertyName("password")]
-        public string Password { get; set; }
     }
 }

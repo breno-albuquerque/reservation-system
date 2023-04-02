@@ -5,17 +5,17 @@ namespace RerservationSystem.Core.Features.RegisterUser.Handler
 {
     public sealed class RegisterUserOutput : IOutput
     {
-        public HttpStatusCode StatusCode { get; private set; }
+        public HttpStatusCode StatusCode { get; }
 
-        public string JwtToken { get; private set; }
+        public string Password { get; }
 
-        private RegisterUserOutput(HttpStatusCode statusCode, string jwtToken)
+        private RegisterUserOutput(HttpStatusCode statusCode, string password)
         {
             StatusCode = statusCode;
-            JwtToken = jwtToken;
+            Password = password;
         }
 
-        public static RegisterUserOutput Success(string jwtToken) => new(HttpStatusCode.Created, jwtToken);
+        public static RegisterUserOutput Success(string password) => new(HttpStatusCode.Created, password);
 
         public static RegisterUserOutput Failure(HttpStatusCode status) => new(status, default);
     }

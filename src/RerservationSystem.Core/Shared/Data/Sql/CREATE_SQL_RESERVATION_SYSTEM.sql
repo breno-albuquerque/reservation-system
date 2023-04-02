@@ -23,7 +23,7 @@ CREATE TABLE [USER](
 	[USER_ROLE] int not null,
 	[DOCUMENT] char(11) not null unique,
 	[EMAIL] nvarchar(100) not null unique,
-	[PASSWORD] nvarchar(100) not null,
+	[PASSWORD_HASH] nvarchar(100) not null,
 	[DATE_INSERTION] datetime not null, 
 	[DATE_ALTERATION] datetime not null,
 	constraint [PK_USER] primary key ([ID]),

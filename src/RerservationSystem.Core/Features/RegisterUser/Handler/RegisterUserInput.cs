@@ -11,14 +11,11 @@ namespace RerservationSystem.Core.Features.RegisterUser.Handler
 
         public ERole Role { get; set; }
 
-        public string Password { get; set; }
-
-        public RegisterUserInput(string document, string email, ERole role, string password)
+        public RegisterUserInput(string document, string email, ERole role)
         {
             Document = document;
             Email = email;
             Role = role;
-            Password = password;
         }
     }
 }

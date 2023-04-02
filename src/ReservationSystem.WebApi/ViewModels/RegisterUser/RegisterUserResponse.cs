@@ -4,12 +4,12 @@ namespace ReservationSystem.WebApi.ViewModels.RegisterUser
 {
     public class RegisterUserResponse
     {
-        [JsonPropertyName("jwtToken")]
-        public string JwtToken { get; set; }
+        [JsonPropertyName("password")]
+        public string Password { get; set; }
 
-        public RegisterUserResponse(string jwtToken)
+        public RegisterUserResponse(string password)
         {
-            JwtToken = jwtToken;
+            Password = password;
         }
     }
 }

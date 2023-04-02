@@ -5,30 +5,37 @@ namespace RerservationSystem.Core.Shared.Users.Entities
 {
     public class User : Entity
     {
-        public string Document { get; set; }
+        public string Document { get; }
 
-        public string Email { get; set; }
+        public string Email { get; }
 
-        public ERole UserRole { get; set; }
+        public ERole UserRole { get; }
 
-        public string Password { get; set; }
+        public string PasswordHash { get; private set; }
 
-        public User(int id, DateTime dateInsertion, DateTime dateAlteration, string document, string email, ERole role, string password)
-            : base(id, dateInsertion, dateAlteration)
-        {
-            Document = document;
-            Email = email;
-            UserRole = role;
-            Password = password;
-        }
-
-        public User(DateTime dateInsertion, DateTime dateAlteration, string document, string email, ERole role, string password)
+        public User(string email, string document, ERole userRole, string? passwordHash, DateTime dateInsertion, DateTime dateAlteration)
             : base(dateInsertion, dateAlteration)
         {
             Document = document;
             Email = email;
-            UserRole = role;
-            Password = password;
+            UserRole = userRole;
+            PasswordHash = passwordHash ?? string.Empty;
         }
+
+        public User(int id, string email, string document, ERole userRole, string? passwordHash, DateTime dateInsertion, DateTime dateAlteration)
+            : base(id, dateInsertion, dateAlteration)
+        {
+            Document = document;
+            Email = email;
+            UserRole = userRole;
+            PasswordHash = passwordHash ?? string.Empty;
+        }
+
+        public void SetPasswordHash(string passwordHash)
+        {
+            PasswordHash = passwordHash;
+        }
+
+        public static User Empty() => new(string.Empty, string.Empty, default, string.Empty, default, default);
     }
 }
