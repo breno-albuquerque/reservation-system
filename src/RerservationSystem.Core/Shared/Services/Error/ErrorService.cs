@@ -1,10 +1,10 @@
-﻿namespace RerservationSystem.Core.Shared.Services.Error
-{
-    public class ErrorService
-    {
-        private readonly IList<string> _errors = new List<string>();
+﻿using Flunt.Notifications;
 
-        public IReadOnlyCollection<string> Errors => _errors.ToList();
+namespace RerservationSystem.Core.Shared.Services.Error
+{
+    public class ErrorService : IErrorService
+    {
+        private IList<string> _errors = new List<string>();
 
         public void AddError(string error)
         {
@@ -14,11 +14,19 @@
             _errors.Add(error);
         }
 
-        public void AddErrors(IList<string> errors)
+        public void AddErrors(IEnumerable<string> errors)
         {
             foreach (var error in errors)
                 if (!string.IsNullOrEmpty(error))
                     _errors.Add(error);
         }
+
+        public void SetNotificationsAsErrors(IEnumerable<Notification> notifications)
+        {
+            _errors = notifications.Select(n => n.Key).ToList();
+        }
+
+        public IEnumerable<string> GetErrors()
+            => _errors;
     }
 }

@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using RerservationSystem.Core.Features.LoginUser.Handler;
+﻿using RerservationSystem.Core.Features.LoginUser.Handler;
 using RerservationSystem.Core.Features.RegisterUser.Handler;
 using RerservationSystem.Core.Shared.Handlers;
 using RerservationSystem.Core.Shared.Services.Error;
 using ReservationSystem.WebApi.ViewModels.LoginUser;
 using ReservationSystem.WebApi.ViewModels.RegisterUser;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ReservationSystem.WebApi.Controllers
 {
     [ApiController]
     public sealed class UserController : ControllerBase
     {
-        private readonly ErrorService _errorService;
+        private readonly IErrorService _errorService;
 
-        public UserController(ErrorService errorService) 
+        public UserController(IErrorService errorService) 
         {
             _errorService = errorService;
         }
@@ -31,7 +31,7 @@ namespace ReservationSystem.WebApi.Controllers
 
             var output = await registerUserHandler.HandleAsync(input);
 
-            var response = new RegisterUserResponse(output.Password, _errorService.Errors);
+            var response = new RegisterUserResponse(output.Password, _errorService.GetErrors());
 
             return StatusCode((int)output.StatusCode, response);
         }
@@ -49,7 +49,7 @@ namespace ReservationSystem.WebApi.Controllers
 
             var output = await loginUserHandler.HandleAsync(input);
 
-            var response = new LoginUserResponse(output.JwtToken, _errorService.Errors);
+            var response = new LoginUserResponse(output.JwtToken, _errorService.GetErrors());
 
             return StatusCode((int)output.StatusCode, response);
         }

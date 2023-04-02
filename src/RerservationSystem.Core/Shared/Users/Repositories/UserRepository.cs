@@ -8,9 +8,9 @@ namespace RerservationSystem.Core.Shared.Users.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly ISqlService _sqlService;
-        private readonly ErrorService _errorService;
+        private readonly IErrorService _errorService;
 
-        public UserRepository(ISqlService sqlService, ErrorService errorService)
+        public UserRepository(ISqlService sqlService, IErrorService errorService)
         {
             _sqlService = sqlService;
             _errorService = errorService;
