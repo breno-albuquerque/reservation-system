@@ -1,9 +1,9 @@
 ﻿using RerservationSystem.Core.Shared.Roles.Enums;
 using System.Text.Json.Serialization;
 
-namespace ReservationSystem.WebApi.Transport
+namespace ReservationSystem.WebApi.ViewModels.RegisterUser
 {
-    public class RegisterUserView
+    public class RegisterUserRequest
     {
         [JsonPropertyName("document")]
         public string Document { get; set; }

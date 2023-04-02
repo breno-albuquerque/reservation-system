@@ -14,8 +14,10 @@ namespace RerservationSystem.Core.Shared.Users.Repositories
 
         public async Task<int> CreateUserAsync(User user)
         {
-            var affectedRows = await _sqlService
-                .CreateAsync<User>(UserRepositorySql.CreateUserQuery,
+            try
+            {
+                var affectedRows = await _sqlService
+                    .CreateAsync<User>(UserRepositorySql.CreateUserQuery,
                     new
                     {
                         userRole = (int)user.UserRole,
@@ -26,7 +28,13 @@ namespace RerservationSystem.Core.Shared.Users.Repositories
                         dateAlteration = user.DateAlteration
                     });
 
-            return affectedRows;
+                return affectedRows;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return 0;
+            }
         }
 
         public async Task<bool> ExistsAsync(User user)

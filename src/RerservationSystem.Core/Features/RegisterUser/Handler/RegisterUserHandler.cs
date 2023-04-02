@@ -2,6 +2,7 @@
 using RerservationSystem.Core.Shared.Services.JwtToken;
 using RerservationSystem.Core.Shared.Users.Entities;
 using RerservationSystem.Core.Shared.Users.Repositories;
+using System.Net;
 
 namespace RerservationSystem.Core.Features.RegisterUser.Handler
 {
@@ -21,12 +22,12 @@ namespace RerservationSystem.Core.Features.RegisterUser.Handler
             var user = new User(DateTime.Now, DateTime.Now, input.Document, input.Email, input.Role, input.Password);
 
             if (await _userRepository.ExistsAsync(user))
-                return RegisterUserOutput.Failure();
+                return RegisterUserOutput.Failure(HttpStatusCode.Conflict);
 
             var result = await _userRepository.CreateUserAsync(user);
 
             if (result == 0)
-                return RegisterUserOutput.Failure();
+                return RegisterUserOutput.Failure(HttpStatusCode.InternalServerError);
 
             var token = _tokenService.GenerateToken(user);
 
