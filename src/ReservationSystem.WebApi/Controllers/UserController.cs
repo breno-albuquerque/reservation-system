@@ -2,6 +2,7 @@
 using RerservationSystem.Core.Features.LoginUser.Handler;
 using RerservationSystem.Core.Features.RegisterUser.Handler;
 using RerservationSystem.Core.Shared.Handlers;
+using RerservationSystem.Core.Shared.Services.Error;
 using ReservationSystem.WebApi.ViewModels.LoginUser;
 using ReservationSystem.WebApi.ViewModels.RegisterUser;
 
@@ -10,7 +11,12 @@ namespace ReservationSystem.WebApi.Controllers
     [ApiController]
     public sealed class UserController : ControllerBase
     {
-        public UserController() { }
+        private readonly ErrorService _errorService;
+
+        public UserController(ErrorService errorService) 
+        {
+            _errorService = errorService;
+        }
 
         [HttpPost("/v1/user/register")]
         public async Task<ActionResult<RegisterUserOutput>> RegisterUserAsync(
@@ -25,7 +31,7 @@ namespace ReservationSystem.WebApi.Controllers
 
             var output = await registerUserHandler.HandleAsync(input);
 
-            var response = new RegisterUserResponse(output.Password);
+            var response = new RegisterUserResponse(output.Password, _errorService.Errors);
 
             return StatusCode((int)output.StatusCode, response);
         }
@@ -43,7 +49,7 @@ namespace ReservationSystem.WebApi.Controllers
 
             var output = await loginUserHandler.HandleAsync(input);
 
-            var response = new LoginUserResponse(output.JwtToken);
+            var response = new LoginUserResponse(output.JwtToken, _errorService.Errors);
 
             return StatusCode((int)output.StatusCode, response);
         }

@@ -19,6 +19,8 @@ namespace RerservationSystem.Core.Features.LoginUser.Handler
 
         public async Task<LoginUserOutput> HandleAsync(LoginUserInput input)
         {
+            //  TO-DO: Fail fast validation
+
             var user = await _userRepository.GetAsync(input.Email);
 
             if (!PasswordHasher.Verify(user.PasswordHash, input.Password))

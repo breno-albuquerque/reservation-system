@@ -2,12 +2,13 @@
 
 namespace ReservationSystem.WebApi.ViewModels.LoginUser
 {
-    public class LoginUserResponse
+    public class LoginUserResponse : ResponseBase
     {
         [JsonPropertyName("jwtToken")]
-        public string JwtToken { get; set; }
+        public string? JwtToken { get; set; }
 
-        public LoginUserResponse(string jwtToken)
+        public LoginUserResponse(string? jwtToken, IEnumerable<string> errors)
+            : base(errors)
         {
             JwtToken = jwtToken;
         }

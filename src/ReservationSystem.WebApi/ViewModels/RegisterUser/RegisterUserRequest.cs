@@ -6,10 +6,10 @@ namespace ReservationSystem.WebApi.ViewModels.RegisterUser
     public class RegisterUserRequest
     {
         [JsonPropertyName("document")]
-        public string Document { get; set; }
+        public string? Document { get; set; }
 
         [JsonPropertyName("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [JsonPropertyName("userRole")]
         public ERole Role { get; set; }

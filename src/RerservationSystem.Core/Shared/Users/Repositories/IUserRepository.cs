@@ -1,10 +1,11 @@
-﻿using RerservationSystem.Core.Shared.Users.Entities;
+﻿using RerservationSystem.Core.Shared.Results;
+using RerservationSystem.Core.Shared.Users.Entities;
 
 namespace RerservationSystem.Core.Shared.Users.Repositories
 {
     public interface IUserRepository
     {
-        Task<int> CreateUserAsync(User user);
+        Task<InsertResult> CreateUserAsync(User user);
 
         Task<bool> ExistsAsync(string email);
 

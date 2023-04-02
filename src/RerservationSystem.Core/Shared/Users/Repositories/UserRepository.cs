@@ -1,4 +1,6 @@
 ﻿using RerservationSystem.Core.Shared.Data;
+using RerservationSystem.Core.Shared.Results;
+using RerservationSystem.Core.Shared.Services.Error;
 using RerservationSystem.Core.Shared.Users.Entities;
 
 namespace RerservationSystem.Core.Shared.Users.Repositories
@@ -6,13 +8,15 @@ namespace RerservationSystem.Core.Shared.Users.Repositories
     public class UserRepository : IUserRepository
     {
         private readonly ISqlService _sqlService;
+        private readonly ErrorService _errorService;
 
-        public UserRepository(ISqlService sqlService)
+        public UserRepository(ISqlService sqlService, ErrorService errorService)
         {
             _sqlService = sqlService;
+            _errorService = errorService;
         }
 
-        public async Task<int> CreateUserAsync(User user)
+        public async Task<InsertResult> CreateUserAsync(User user)
         {
             try
             {
@@ -28,12 +32,12 @@ namespace RerservationSystem.Core.Shared.Users.Repositories
                             dateAlteration = user.DateAlteration
                         });
 
-                return affectedRows;
+                return new InsertResult(affectedRows);
             }
-            catch
+            catch (Exception ex)
             {
-                //  TO-DO: Adicionar aos erros (Notifiable)
-                return 0;
+                _errorService.AddError(ex.Message);
+                return new InsertResult(default);
             }
         }
 
@@ -44,9 +48,9 @@ namespace RerservationSystem.Core.Shared.Users.Repositories
                 return await _sqlService
                     .ExistsAsync(UserRepositorySql.UserExistsQuery, new { email });
             }
-            catch
+            catch (Exception ex)
             {
-                //  TO-DO: Adicionar aos erros (Notifiable)
+                _errorService.AddError(ex.Message);
                 return false;
             }
         }
@@ -58,9 +62,9 @@ namespace RerservationSystem.Core.Shared.Users.Repositories
                 return await _sqlService.GetAsync<User>(UserRepositorySql.GetUserQuery, new { email })
                     ?? User.Empty();
             }
-            catch
+            catch (Exception ex)
             {
-                //  TO-DO: Adicionar aos erros (Notifiable)
+                _errorService.AddError(ex.Message);
                 return User.Empty();
             }
         }

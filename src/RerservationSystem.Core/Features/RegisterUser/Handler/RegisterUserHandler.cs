@@ -17,6 +17,8 @@ namespace RerservationSystem.Core.Features.RegisterUser.Handler
 
         public async Task<RegisterUserOutput> HandleAsync(RegisterUserInput input)
         {
+            //  TO-DO: Fail fast validation
+
             var user = new User(input.Email, input.Document, input.Role, default, DateTime.Now, DateTime.Now);
 
             if (await _userRepository.ExistsAsync(user.Email))
@@ -24,11 +26,11 @@ namespace RerservationSystem.Core.Features.RegisterUser.Handler
 
             var password = GeneratePassword(user);
 
-            var result = await _userRepository.CreateUserAsync(user);
+            var insertion = await _userRepository.CreateUserAsync(user);
 
-            if (result == 0)
+            if (!insertion.Success)
                 return RegisterUserOutput.Failure(HttpStatusCode.InternalServerError);
-
+               
             //  TO-DO: Enviar senha por email
             return RegisterUserOutput.Success(password);
         }

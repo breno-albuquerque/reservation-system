@@ -2,7 +2,7 @@
 {
     public enum ETypeName
     {
-        Unknown = 0,
+        None = 0,
         Hotel = 1,
         Restaurant = 2
     }

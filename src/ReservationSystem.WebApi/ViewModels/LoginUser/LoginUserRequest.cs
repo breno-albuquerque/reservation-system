@@ -5,9 +5,9 @@ namespace ReservationSystem.WebApi.ViewModels.LoginUser
     public class LoginUserRequest
     {
         [JsonPropertyName("email")]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [JsonPropertyName("password")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
     }
 }

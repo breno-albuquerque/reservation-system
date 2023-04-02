@@ -3,6 +3,7 @@ using RerservationSystem.Core.Features.LoginUser.Handler;
 using RerservationSystem.Core.Features.RegisterUser.Handler;
 using RerservationSystem.Core.Shared.Data;
 using RerservationSystem.Core.Shared.Handlers;
+using RerservationSystem.Core.Shared.Services.Error;
 using RerservationSystem.Core.Shared.Services.JwtToken;
 using RerservationSystem.Core.Shared.Users.Repositories;
 
@@ -47,7 +48,10 @@ namespace RerservationSystem.Core
 
         private static IServiceCollection AddServices(this IServiceCollection services)
         {
-            return services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ITokenService, TokenService>();
+            services.AddScoped<ErrorService>();
+
+            return services;
         }
     }
 }

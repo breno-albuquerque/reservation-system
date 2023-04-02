@@ -7,9 +7,9 @@ namespace RerservationSystem.Core.Features.RegisterUser.Handler
     {
         public HttpStatusCode StatusCode { get; }
 
-        public string Password { get; }
+        public string? Password { get; }
 
-        private RegisterUserOutput(HttpStatusCode statusCode, string password)
+        private RegisterUserOutput(HttpStatusCode statusCode, string? password)
         {
             StatusCode = statusCode;
             Password = password;
