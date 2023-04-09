@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RerservationSystem.Core.Features.LoginUser.Handler;
-using RerservationSystem.Core.Features.RegisterUser.Contract;
 using RerservationSystem.Core.Features.RegisterUser.Handler;
 using RerservationSystem.Core.Shared.Data;
 using RerservationSystem.Core.Shared.Handlers;
@@ -20,7 +19,6 @@ namespace RerservationSystem.Core
                 .AddRegisterUser()
                 .AddLoginUser()
                 .AddRepositories()
-                .AddValidators()
                 .AddServices();
         }
 
@@ -46,11 +44,6 @@ namespace RerservationSystem.Core
         private static IServiceCollection AddLoginUser(this IServiceCollection services)
         {
             return services.AddScoped<IHandler<LoginUserInput, LoginUserOutput>, LoginUserHandler>();
-        }
-
-        private static IServiceCollection AddValidators(this IServiceCollection services)
-        {
-            return services.AddScoped<IRegisterUserInputContract, RegisterUserInputContract>();
         }
 
         private static IServiceCollection AddServices(this IServiceCollection services)

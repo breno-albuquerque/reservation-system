@@ -1,4 +1,6 @@
 ﻿using RerservationSystem.Core.Shared.Roles.Enums;
+using ReservationSystem.WebApi.Extensions.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
 namespace ReservationSystem.WebApi.ViewModels.RegisterUser
@@ -6,12 +8,18 @@ namespace ReservationSystem.WebApi.ViewModels.RegisterUser
     public sealed class RegisterUserRequest
     {
         [JsonPropertyName("document")]
-        public string? Document { get; set; }
+        [Required(ErrorMessage = "Document is required")]
+        [Cpf(ErrorMessage = "Document must be valid")]
+        public string Document { get; set; } = string.Empty;
 
         [JsonPropertyName("email")]
-        public string? Email { get; set; }
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Email must be valid")]
+        public string Email { get; set; } = string.Empty;
 
         [JsonPropertyName("userRole")]
+        [Required(ErrorMessage = "User Role is required")]
+        [Role(ErrorMessage = "User Role must be in valid")]
         public ERole Role { get; set; }
     }
 }

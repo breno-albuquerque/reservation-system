@@ -1,25 +1,28 @@
-﻿using RerservationSystem.Core.Features.LoginUser.Handler;
+﻿using Microsoft.AspNetCore.Mvc;
+using RerservationSystem.Core.Features.LoginUser.Handler;
 using RerservationSystem.Core.Features.RegisterUser.Handler;
 using RerservationSystem.Core.Shared.Handlers;
-using RerservationSystem.Core.Shared.Services.Error;
+using ReservationSystem.WebApi.Filters;
+using ReservationSystem.WebApi.Handlers;
 using ReservationSystem.WebApi.ViewModels.LoginUser;
 using ReservationSystem.WebApi.ViewModels.RegisterUser;
-using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace ReservationSystem.WebApi.Controllers
 {
     [ApiController]
     public sealed class UserController : ControllerBase
     {
-        private readonly IErrorService _errorService;
+        private readonly IResponseHandler _responseHandler;
 
-        public UserController(IErrorService errorService) 
+        public UserController(IResponseHandler responseHandler) 
         {
-            _errorService = errorService;
+            _responseHandler = responseHandler;
         }
 
         [HttpPost("/v1/user/register")]
-        public async Task<ActionResult<RegisterUserOutput>> RegisterUserAsync(
+        [ValidateModel]
+        public async Task<ActionResult<RegisterUserResponse>> RegisterUserAsync(
             [FromBody] RegisterUserRequest registerUserRequest,
             [FromServices] IHandler<RegisterUserInput, RegisterUserOutput> registerUserHandler
             )
@@ -31,27 +34,33 @@ namespace ReservationSystem.WebApi.Controllers
 
             var output = await registerUserHandler.HandleAsync(input);
 
-            var response = new RegisterUserResponse(output.Password, _errorService.GetErrors());
+            var response = new RegisterUserResponse(output.Password, output.Errors);
 
-            return StatusCode((int)output.StatusCode, response);
+            if (output.StatusCode != HttpStatusCode.OK)
+                return _responseHandler.Handle(response, output.StatusCode);
+
+            return Created("/v1/user/register", response);
         }
 
         [HttpPost("/v1/user/login")]
-        public async Task<ActionResult<LoginUserOutput>> LoginUserAsync(
+        [ValidateModel]
+        public async Task<ActionResult<LoginUserResponse>> LoginUserAsync(
             [FromBody] LoginUserRequest loginUserRequest,
             [FromServices] IHandler<LoginUserInput, LoginUserOutput> loginUserHandler
             )
         {
             var input = new LoginUserInput(
                 loginUserRequest.Email,
-                loginUserRequest.Password
-                );
+                loginUserRequest.Password);
 
             var output = await loginUserHandler.HandleAsync(input);
 
-            var response = new LoginUserResponse(output.JwtToken, _errorService.GetErrors());
+            var response = new LoginUserResponse(output.JwtToken, output.Errors);
 
-            return StatusCode((int)output.StatusCode, response);
+            if (output.StatusCode != HttpStatusCode.OK)
+                return _responseHandler.Handle(response, output.StatusCode);
+
+            return Ok(response);
         }
     }
 }

@@ -41,7 +41,12 @@ void configureAuthentication(WebApplicationBuilder builder)
 
 void configureServices(WebApplicationBuilder builder)
 {
-    builder.Services.AddControllers();
+    builder.Services
+        .AddControllers()
+        .ConfigureApiBehaviorOptions(options =>
+        {
+            options.SuppressModelStateInvalidFilter = true;
+        });
     builder.Services.AddWebApi();
     builder.Services.AddCore();
 }

@@ -5,16 +5,16 @@ namespace RerservationSystem.Core.Features.RegisterUser.Handler
 {
     public sealed class RegisterUserInput : IInput
     {
-        public string Document { get; }
+        public string Document { get; } = string.Empty;
 
-        public string Email { get; }
+        public string Email { get; } = string.Empty;
 
         public ERole Role { get; }
 
-        public RegisterUserInput(string? document, string? email, ERole role)
+        public RegisterUserInput(string document, string email, ERole role)
         {
-            Document = document ?? string.Empty;
-            Email = email ?? string.Empty;
+            Document = document;
+            Email = email;
             Role = role;
         }
     }

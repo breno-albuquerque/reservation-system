@@ -1,5 +1,4 @@
-﻿using RerservationSystem.Core.Features.RegisterUser.Contract;
-using RerservationSystem.Core.Shared.Handlers;
+﻿using RerservationSystem.Core.Shared.Handlers;
 using RerservationSystem.Core.Shared.Services.Error;
 using RerservationSystem.Core.Shared.Users.Entities;
 using RerservationSystem.Core.Shared.Users.Repositories;
@@ -11,35 +10,27 @@ namespace RerservationSystem.Core.Features.RegisterUser.Handler
     public sealed class RegisterUserHandler : IHandler<RegisterUserInput, RegisterUserOutput>
     {
         private readonly IUserRepository _userRepository;
-        private readonly IRegisterUserInputContract _inputContract;
         private readonly IErrorService _errorService;
 
-        public RegisterUserHandler(IUserRepository userRepository, IRegisterUserInputContract inputContract, IErrorService errorService)
+        public RegisterUserHandler(IUserRepository userRepository, IErrorService errorService)
         {
             _userRepository = userRepository;
-            _inputContract = inputContract;
             _errorService = errorService;
         }
 
         public async Task<RegisterUserOutput> HandleAsync(RegisterUserInput input)
         {
-            if (!_inputContract.Validate(input))
-            {
-                _errorService.SetNotificationsAsErrors(_inputContract.GetNotifications());
-                return RegisterUserOutput.Failure(HttpStatusCode.BadRequest);
-            }
-
             var user = new User(input.Email, input.Document, input.Role, default, DateTime.Now, DateTime.Now);
 
             if (await _userRepository.ExistsAsync(user.Email))
-                return RegisterUserOutput.Failure(HttpStatusCode.Conflict);
-
+                return RegisterUserOutput.Failure(HttpStatusCode.Conflict, _errorService.GetErrors());
+                      
             var password = GeneratePassword(user);
 
             var insertion = await _userRepository.CreateUserAsync(user);
 
             if (!insertion.Success)
-                return RegisterUserOutput.Failure(HttpStatusCode.InternalServerError);
+                return RegisterUserOutput.Failure(HttpStatusCode.InternalServerError, _errorService.GetErrors());
                
             //  TO-DO: Enviar senha por email
             return RegisterUserOutput.Success(password);

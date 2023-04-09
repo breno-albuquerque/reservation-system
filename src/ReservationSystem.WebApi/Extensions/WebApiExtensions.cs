@@ -1,11 +1,14 @@
-﻿namespace ReservationSystem.WebApi.Extensions
+﻿using ReservationSystem.WebApi.Handlers;
+
+namespace ReservationSystem.WebApi.Extensions
 {
     public static class WebApiExtensions
     {
         public static IServiceCollection AddWebApi(this IServiceCollection services)
         {
             return services
-                .AddApiResources();
+                .AddApiResources()
+                .AddHandlers();
             //.AddJwtConfiguration();
         }
 
@@ -14,6 +17,13 @@
             return services
                 .AddSwaggerGen()
                 .AddEndpointsApiExplorer();
+        }
+
+        public static IServiceCollection AddHandlers(this IServiceCollection services)
+        {
+            services.AddScoped<IResponseHandler, ResponseHandler>();
+
+            return services;              
         }
 
         //public static IServiceCollection AddJwtConfiguration(this IServiceCollection services)
