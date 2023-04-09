@@ -4,14 +4,14 @@ namespace RerservationSystem.Core.Features.LoginUser.Handler
 {
     public sealed class LoginUserInput : IInput
     {
-        public string Email { get; }
+        public string Email { get; } = string.Empty;
 
-        public string Password { get; }
+        public string Password { get; } = string.Empty;
 
-        public LoginUserInput(string? email, string? password)
+        public LoginUserInput(string email, string password)
         {
-            Email = email ?? string.Empty;
-            Password = password ?? string.Empty;
+            Email = email;
+            Password = password;
         }
     }
 }

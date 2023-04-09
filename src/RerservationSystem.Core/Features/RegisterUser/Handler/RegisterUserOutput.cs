@@ -7,17 +7,17 @@ namespace RerservationSystem.Core.Features.RegisterUser.Handler
     {
         public HttpStatusCode StatusCode { get; }
 
-        public string? Password { get; }
+        public string Password { get; } = string.Empty;
 
         public IEnumerable<string> Errors { get; } = Enumerable.Empty<string>();
 
-        private RegisterUserOutput(HttpStatusCode statusCode, string? password)
+        private RegisterUserOutput(HttpStatusCode statusCode, string password)
         {
             StatusCode = statusCode;
             Password = password;
         }
 
-        private RegisterUserOutput(HttpStatusCode statusCode, string? password, IEnumerable<string> errors)
+        private RegisterUserOutput(HttpStatusCode statusCode, string password, IEnumerable<string> errors)
             : this(statusCode, password)
         {
             Errors = errors;
@@ -27,6 +27,6 @@ namespace RerservationSystem.Core.Features.RegisterUser.Handler
             => new(HttpStatusCode.Created, password);
 
         public static RegisterUserOutput Failure(HttpStatusCode status, IEnumerable<string> errors) 
-            => new(status, default, errors);
+            => new(status, string.Empty, errors);
     }
 }
