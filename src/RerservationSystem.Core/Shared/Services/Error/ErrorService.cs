@@ -17,7 +17,7 @@ namespace RerservationSystem.Core.Shared.Services.Error
         public void AddErrors(IEnumerable<string> errors)
         {
             foreach (var error in errors)
-                if (!string.IsNullOrEmpty(error))
+                if (string.IsNullOrEmpty(error) == false)
                     _errors.Add(error);
         }
 

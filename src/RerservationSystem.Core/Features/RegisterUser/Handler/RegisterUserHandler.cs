@@ -29,7 +29,7 @@ namespace RerservationSystem.Core.Features.RegisterUser.Handler
 
             var insertion = await _userRepository.CreateUserAsync(user);
 
-            if (!insertion.Success)
+            if (insertion.Success == false)
                 return RegisterUserOutput.Failure(HttpStatusCode.InternalServerError, _errorService.GetErrors());
                
             //  TO-DO: Enviar senha por email

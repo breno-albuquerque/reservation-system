@@ -24,7 +24,7 @@ namespace RerservationSystem.Core.Features.LoginUser.Handler
         {
             var user = await _userRepository.GetAsync(input.Email);
 
-            if (!PasswordHasher.Verify(user.PasswordHash, input.Password))
+            if (PasswordHasher.Verify(user.PasswordHash, input.Password) == false)
                 return LoginUserOutput.Failure(HttpStatusCode.Unauthorized, _errorService.GetErrors());
 
             var token = _tokenService.GenerateToken(user);
