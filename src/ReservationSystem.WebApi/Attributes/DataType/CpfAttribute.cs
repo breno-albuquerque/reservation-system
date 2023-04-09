@@ -1,14 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ReservationSystem.WebApi.Extensions.DataAnnotations
+namespace ReservationSystem.WebApi.Attributes.DataType
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter,
         AllowMultiple = false)]
     public sealed class CpfAttribute : DataTypeAttribute
     {
-        public CpfAttribute() : base("Cpf")
-        {
-        }
+        public CpfAttribute() : base("Cpf") { }
 
         public override bool IsValid(object? value)
         {

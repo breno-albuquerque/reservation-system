@@ -1,5 +1,5 @@
 ﻿using RerservationSystem.Core.Shared.Roles.Enums;
-using ReservationSystem.WebApi.Extensions.DataAnnotations;
+using ReservationSystem.WebApi.Attributes.DataType;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 

@@ -1,15 +1,13 @@
 ﻿using RerservationSystem.Core.Shared.Roles.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace ReservationSystem.WebApi.Extensions.DataAnnotations
+namespace ReservationSystem.WebApi.Attributes.DataType
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter,
         AllowMultiple = false)]
     public sealed class RoleAttribute : DataTypeAttribute
     {
-        public RoleAttribute() : base("Role")
-        {
-        }
+        public RoleAttribute() : base("Role") { }
 
         public override bool IsValid(object? value)
         {

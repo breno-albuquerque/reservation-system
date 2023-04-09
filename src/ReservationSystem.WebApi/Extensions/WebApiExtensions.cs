@@ -9,7 +9,6 @@ namespace ReservationSystem.WebApi.Extensions
             return services
                 .AddApiResources()
                 .AddHandlers();
-            //.AddJwtConfiguration();
         }
 
         public static IServiceCollection AddApiResources(this IServiceCollection services)
@@ -25,14 +24,5 @@ namespace ReservationSystem.WebApi.Extensions
 
             return services;              
         }
-
-        //public static IServiceCollection AddJwtConfiguration(this IServiceCollection services)
-        //{
-        //    services
-        //        .AddOptions<JwtConfiguration>()
-        //        .Configure<IConfiguration>((settings, configuration) => { configuration.GetSection(nameof(JwtConfiguration)).Bind(settings); });
-
-        //    return services;
-        //}
     }
 }

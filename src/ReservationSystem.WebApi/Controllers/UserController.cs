@@ -11,6 +11,7 @@ using System.Net;
 namespace ReservationSystem.WebApi.Controllers
 {
     [ApiController]
+    [ValidateModel]
     public sealed class UserController : ControllerBase
     {
         private readonly IResponseHandler _responseHandler;
@@ -21,7 +22,10 @@ namespace ReservationSystem.WebApi.Controllers
         }
 
         [HttpPost("/v1/user/register")]
-        [ValidateModel]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<RegisterUserResponse>> RegisterUserAsync(
             [FromBody] RegisterUserRequest registerUserRequest,
             [FromServices] IHandler<RegisterUserInput, RegisterUserOutput> registerUserHandler
@@ -43,7 +47,10 @@ namespace ReservationSystem.WebApi.Controllers
         }
 
         [HttpPost("/v1/user/login")]
-        [ValidateModel]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<LoginUserResponse>> LoginUserAsync(
             [FromBody] LoginUserRequest loginUserRequest,
             [FromServices] IHandler<LoginUserInput, LoginUserOutput> loginUserHandler
