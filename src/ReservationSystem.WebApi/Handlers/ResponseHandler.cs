@@ -4,7 +4,7 @@ using System.Net;
 
 namespace ReservationSystem.WebApi.Handlers
 {
-    public class ResponseHandler : IResponseHandler
+    public sealed class ResponseHandler : IResponseHandler
     {
         private ResponseBase? _response;
 

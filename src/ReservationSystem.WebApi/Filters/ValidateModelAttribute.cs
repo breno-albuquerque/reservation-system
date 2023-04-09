@@ -4,7 +4,7 @@ using ReservationSystem.WebApi.ViewModels;
 
 namespace ReservationSystem.WebApi.Filters
 {
-    public class ValidateModelAttribute : ActionFilterAttribute
+    public sealed class ValidateModelAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
